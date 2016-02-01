@@ -8,16 +8,20 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using OridnaryRPG;
 
-namespace OridnaryRPG
+namespace OrdinaryRPG.Sprites.Sprite_types
 {
-    class Magazine : Sprite
+    public class Block : Sprite
     {
-        private int BulletsCount;
-        public Magazine(ContentManager content, int bulletsCount)
-            : base(content)
+        public bool isSolid { get; protected set; }
+
+        public Block(ContentManager content) : base(content)
         {
-            BulletsCount = bulletsCount;
+
         }
+        public virtual void onActivate() {}
+        public virtual void onIntersect() {}
+        
     }
 }

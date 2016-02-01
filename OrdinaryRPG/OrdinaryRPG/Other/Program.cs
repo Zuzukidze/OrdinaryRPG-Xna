@@ -1,6 +1,7 @@
 using System;
+using OridnaryRPG;
 
-namespace XnaTest3
+namespace OrdinaryRPG
 {
 #if WINDOWS || XBOX
     static class Program

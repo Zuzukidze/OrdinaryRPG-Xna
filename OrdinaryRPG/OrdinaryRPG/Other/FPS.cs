@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-namespace XnaTest3
+namespace OridnaryRPG
 {
     public class FPS : DrawableGameComponent
     {

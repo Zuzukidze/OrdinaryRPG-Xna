@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace XnaTest3.Sprites.Sprite_types
+namespace OridnaryRPG.Sprites.Sprite_types
 {
     class Player : Sprite
     {
@@ -94,22 +94,38 @@ namespace XnaTest3.Sprites.Sprite_types
             if (Game1.Map[x, y] != null)
             {
                 if (rect.Intersects(Game1.Map[x, y].getRect()))
-                    return true;
+                {
+                    Game1.Map[x, y].onIntersect();
+                    if (Game1.Map[x, y].isSolid)
+                        return true;
+                }
             }
             if (Game1.Map[x + 1, y] != null)
             {
                 if (rect.Intersects(Game1.Map[x + 1, y].getRect()))
-                    return true;
+                {
+                    Game1.Map[x+1, y].onIntersect();
+                    if (Game1.Map[x+1, y].isSolid)
+                        return true;
+                }
             }
             if (Game1.Map[x, y + 1] != null)
             {
                 if (rect.Intersects(Game1.Map[x, y + 1].getRect()))
-                    return true;
+                {
+                    Game1.Map[x, y+1].onIntersect();
+                    if (Game1.Map[x, y+1].isSolid)
+                        return true;
+                }
             }
             if (Game1.Map[x + 1, y + 1] != null)
             {
                 if (rect.Intersects(Game1.Map[x + 1, y + 1].getRect()))
-                    return true;
+                {
+                    Game1.Map[x+1, y+1].onIntersect();
+                    if (Game1.Map[x+1, y+1].isSolid)
+                        return true;
+                }
             }
             return false;
         }

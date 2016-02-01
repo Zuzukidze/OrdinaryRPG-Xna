@@ -9,15 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace OridnaryRPG
+namespace OrdinaryRPG.Sprites.Sprite_types.Block_types
 {
-    class Magazine : Sprite
+    class Brick : Block
     {
-        private int BulletsCount;
-        public Magazine(ContentManager content, int bulletsCount)
-            : base(content)
+        public Brick(ContentManager content) : base(content)
         {
-            BulletsCount = bulletsCount;
+            this.isSolid = true;
         }
     }
 }

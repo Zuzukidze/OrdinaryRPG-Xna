@@ -8,9 +8,11 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using XnaTest3.Sprites.Sprite_types;
+using OrdinaryRPG.Sprites.Sprite_types.Block_types;
+using OrdinaryRPG.Sprites.Sprite_types;
+using OridnaryRPG.Sprites.Sprite_types;
 
-namespace XnaTest3
+namespace OridnaryRPG
 {
     /// <summary>
     /// This is the main type for your game
@@ -22,15 +24,15 @@ namespace XnaTest3
         SpriteFont sFont;
         Random r = new Random();
         public static Vector2 ScreenSize = new Vector2(1280, 960);
-        public static Sprite[,] Map = new Sprite[20, 15];
+        public static Block[,] Map = new Block[20, 15];
         Vector2 MapSize = new Vector2(20, 15);
         int indexOfCursor = 0;
         int lastWheelState = 0;
-        Sprite[] blockSet = new Sprite[2];
+        Block[] blockSet = new Block[2];
         //SPRITES
         Sprite cursor;
-        Sprite block;
-        Sprite button;
+        Brick block;
+        Button button;
 
         //Sprite player;
         Sprite player;
@@ -55,8 +57,8 @@ namespace XnaTest3
             cursor = new Sprite(Content); //mouse icon
             player = new Player(Content);
             //Bocks
-            block = new Sprite(Content);
-            button = new Sprite(Content);
+            block = new Brick(Content);
+            button = new Button(Content);
             blockSet[0] = block;
             blockSet[1] = button;
 
@@ -165,25 +167,27 @@ namespace XnaTest3
 
             base.Draw(gameTime);
         }
-        public Sprite getBlock(int index)
+        public Block getBlock(int index)
         {
-            Sprite Block = new Sprite(Content);
+            Block Block;
             switch (index)
             {
                 case 0:
+                    Block = new Brick(Content);
                     Block.LoadTexture("Block", new Vector2(0), new Vector2(16));
                     Block.ScaleX(new Vector2(4));
                     break;
                 case 1:
+                    Block = new Button(Content);
                     Block.LoadTexture("Button", new Vector2(0), new Vector2(32,16),new Vector2(2,1));
                     Block.ScaleX(new Vector2(4));
                     break;
                 default:
-                    Block.LoadTexture("Block", new Vector2(0), new Vector2(16));
-                    Block.ScaleX(new Vector2(4));
+                    Block = null;
                     break;
             }
             return Block;
+            
         }
 
     }
