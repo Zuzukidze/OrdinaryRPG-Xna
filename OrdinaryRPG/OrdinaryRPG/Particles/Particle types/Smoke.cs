@@ -11,17 +11,19 @@ using Microsoft.Xna.Framework.Media;
 
 namespace OridnaryRPG
 {
-    class Smoke
+    class Smoke : Particle
     {
-        public int TTL = 4000; //time to life
         public Smoke(Vector2 position, Random r, ContentManager content, GameTime gameTime)
+            : base(new Vector2((float)r.NextDouble() - (float)r.NextDouble(), (float)r.NextDouble() - (float)r.NextDouble()),position, new Vector2(16),"smoke",new Vector2(8,1),content,false)
         {
-            ParticleSystem.CreateParticle(position, new Vector2((float)r.NextDouble() - (float)r.NextDouble(), (float)r.NextDouble() - (float)r.NextDouble()), new Vector2(16, 16), new Vector2(8, 1), "smoke", content, UpdateSmoke, TTL, 0, "smoke");
+            TTL = 4000;
+            Tags = new string[1]{"smoke"};
+            ParticleSystem.AddParticle(this);
         }
-        public void UpdateSmoke(ref Particle particle, ref List<Particle> particles)
+        public override void Update(ref Particle[] particles, GameTime gametime)
         {
-            if (particle.Color == Color.White)
-                particle.Color = Color.Black;
+            if (this.color == Color.White)
+                color = Color.Black;
         }
     }
 }

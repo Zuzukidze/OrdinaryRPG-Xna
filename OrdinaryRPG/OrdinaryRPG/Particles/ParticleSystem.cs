@@ -13,49 +13,36 @@ namespace OridnaryRPG
 {
     class ParticleSystem : DrawableGameComponent
     {
-        public static List<Particle> Particles = new List<Particle>(); //List of all particles
+        public static Particle[] Particles = new Particle[Game1.MAX_PARTICLES_COUNT];
         SpriteBatch sBatch;
         Random r = new Random();
-
+        //basic particle
         public static void CreateParticle(Vector2 position, Vector2 velocity, Vector2 size,
-            string textureName, ContentManager content, int TTL = 3000, float angle = 0, string tags = "")
+            string textureName, ContentManager content, int TTL = 3000, float angle = 0, string[] tags = null)
         {
             //create particle, thanks cap
             Particle p = new Particle(velocity, position, size, textureName, Vector2.One, content);
-            p.isRepeat = false;
+            p.isRepeating = false;
             p.TTL = TTL;
             p.SetOrigrnToCenter();
             p.Rotate(angle);
             p.Tags = tags;
             //add to list of particles, thanks again
-            Particles.Add(p);
+            AddParticle(p);
         }
+        //animated particle
         public static void CreateParticle(Vector2 position, Vector2 velocity, Vector2 size, Vector2 frameCount,
-            string textureName, ContentManager content, int TTL = 3000, float angle = 0, string tags = "")
+            string textureName, ContentManager content, int TTL = 3000, float angle = 0, string[] tags = null)
         {
             //create particle, thanks cap
             Particle p = new Particle(velocity, position, size, textureName, frameCount, content);
-            p.isRepeat = false;
+            p.isRepeating = false;
             p.TTL = TTL;
             p.SetOrigrnToCenter();
             p.Rotate(angle);
             p.Tags = tags;
             //add to list of particles, thanks again
-            Particles.Add(p);
-        }
-        public static void CreateParticle(Vector2 position, Vector2 velocity, Vector2 size, Vector2 frameCount,
-            string textureName, ContentManager content, UpdateParticle update, int TTL = 3000, float angle = 0, string tags = "")
-        {
-            //create particle, thanks cap
-            Particle p = new Particle(velocity, position, size, textureName, frameCount, content);
-            p.isRepeat = false;
-            p.TTL = TTL;
-            p.SetOrigrnToCenter();
-            p.Rotate(angle);
-            p.Update = update;
-            p.Tags = tags;
-            //add to list of particles, thanks again
-            Particles.Add(p);
+            AddParticle(p);
         }
 
 
@@ -71,37 +58,57 @@ namespace OridnaryRPG
         public override void Update(GameTime gameTime)
         {
             List<Particle> ToDelete = new List<Particle>();
-            //foreach (Particle p in Particles)
-            for (int i = 0; i < Particles.Count; i++)
+            for (int i = 0; i < Particles.Length; i++)
             {
                 Particle p = Particles[i];
-                //Move particle
-                p.Move(p.Velocity);
-                p.TOL += gameTime.ElapsedGameTime.Milliseconds;
-                //Custom update if particle have it
-                if (p.Update != null)
-                    p.Update(ref p, ref Particles);
-                //if time to die - kill particle
-                if (p.TOL >= p.TTL)
+                if (p != null && p.isActive)
                 {
-                    ToDelete.Add(p);
+                    //Move particle
+                    p.Move(p.Velocity);
+                    //add time of life of particle
+                    p.TOL += gameTime.ElapsedGameTime.Milliseconds;
+                    //update particle
+                    p.Update(ref Particles, gameTime);
+                    //if time to die - kill particle
+                    if (p.TOL >= p.TTL)
+                    {
+                        p.isActive = false;
+                    }
                 }
             }
 
-            foreach (Particle p in ToDelete)
-                Particles.Remove(p);
         }
         public override void Draw(GameTime gameTime)
         {
             sBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone); //for pixels were pixels
-            for (int i = 0; i < Particles.Count; i++)
+            for (int i = 0; i < Particles.Length; i++)
             {
                 Particle p = Particles[i];
-                p.Draw(sBatch, gameTime);
+                if (p != null && p.isActive)
+                    p.Draw(sBatch, gameTime);
             }
             sBatch.End();
         }
 
-        public delegate void UpdateParticle(ref Particle particle, ref List<Particle> particles);
+        public static void AddParticle(Particle particle)
+        {
+            for (int i = 0; i < Particles.Length; i++)
+            {
+                Particle p = Particles[i];
+                if (p == null || !p.isActive)
+                    Particles[i] = particle;
+            }
+        }
+        public static int CountOfActiveParticles()
+        {
+            int count = 0;
+            for (int i = 0; i < Particles.Length; i++)
+            {
+                Particle p = Particles[i];
+                if (p != null && p.isActive)
+                    count++;
+            }
+            return count;
+        }
     }
 }

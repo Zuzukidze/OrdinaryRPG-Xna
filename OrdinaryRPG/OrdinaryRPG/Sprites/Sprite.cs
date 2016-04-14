@@ -19,17 +19,17 @@ namespace OridnaryRPG
         public Vector2 Size; //размеры объекта
         private Texture2D Picture; //картинка, графически представляющая объект
         protected SpriteEffects SpriteEffect; //эффекты спрайта
-        public Color Color = Color.White; //цвет, которым рисуется объект
+        public Color color = Color.White; //цвет, которым рисуется объект
         public Vector2 ScaleFactor {get;private set;} //коэффицент сжатия-растяжения
         public ContentManager Content; //для упрощения, эквивалент менеджера в Game
-        public Vector2 FrameCount = Vector2.One; //количество кадров, картинкапредставляется в виде матрицы.
+        public Vector2 FrameCount = Vector2.One; //количество кадров, картинка представляется в виде матрицы.
         public Vector2 FrameCurrent = Vector2.Zero; //текущий кадр, на пересечении строкии столбца.
         public bool Animation = false; //анимировать ли картинку
         public int FramesPerSecond; //кол-во кадров в секунду
         private double TimeFromLastFrame; //время с предыдущего кадра анимации
         private double TimeToNextFrame; //время до следующего кадра анимации
 
-        public bool isRepeat = true;
+        public bool isRepeating = true;
         private float Angle = 0; //угол
         public Vector2 Origin = Vector2.Zero;
         //public const float G = 9,8;
@@ -91,7 +91,7 @@ namespace OridnaryRPG
                 int frameY = (int)(FrameCurrent.Y * frameSizeY);
                 Rectangle rectangle = new Rectangle(frameX, frameY, frameSizeX,
                frameSizeY);
-                spriteBatch.Draw(Picture, Position, rectangle, Color, -Angle, Origin,
+                spriteBatch.Draw(Picture, Position, rectangle, color, -Angle, Origin,
                ScaleFactor, SpriteEffect, 0);
                 /*spriteBatch.Draw(Picture, new Vector2(getRect().X,getRect().Y), rectangle, Color.Black, -Angle, new Vector2(0),
                ScaleFactor, SpriteEffect, 0);*/
@@ -107,7 +107,7 @@ namespace OridnaryRPG
                     }
                     if (FrameCurrent.X > FrameCount.X - 1)
                     {
-                        if (isRepeat)
+                        if (isRepeating)
                             FrameCurrent.X = 0;
                         else
                             FrameCurrent.X = FrameCount.X - 1;

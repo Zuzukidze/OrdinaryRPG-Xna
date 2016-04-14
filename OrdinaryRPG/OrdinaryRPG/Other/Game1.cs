@@ -26,6 +26,7 @@ namespace OridnaryRPG
         public static Vector2 ScreenSize = new Vector2(1280, 960);
         public static Block[,] Map = new Block[20, 15];
         Vector2 MapSize = new Vector2(20, 15);
+        public const int MAX_PARTICLES_COUNT = 5120;
         int indexOfCursor = 0;
         int lastWheelState = 0;
         Block[] blockSet = new Block[2];
@@ -79,11 +80,11 @@ namespace OridnaryRPG
 
             block.LoadTexture("Block", new Vector2(0), new Vector2(16));
             block.ScaleX(new Vector2(4));
-            block.Color *= .5f;
+            block.color *= .5f;
 
             button.LoadTexture("Button", new Vector2(0), new Vector2(32,16),new Vector2(2,1));
             button.ScaleX(new Vector2(4));
-            button.Color *= .5f;
+            button.color *= .5f;
         }
         protected override void UnloadContent()
         {
@@ -130,7 +131,7 @@ namespace OridnaryRPG
                 else
                     indexOfCursor++;
 
-            cursor.Color = Color.Black;
+            cursor.color = Color.Black;
             cursor.SetPosition(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
             blockSet[indexOfCursor].SetPosition(new Vector2((int)Mouse.GetState().X - Mouse.GetState().X % 64, (int)Mouse.GetState().Y - Mouse.GetState().Y % 64));
             
@@ -144,11 +145,13 @@ namespace OridnaryRPG
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
             //DRAW SPRITES
+            spriteBatch.DrawString(sFont, ParticleSystem.CountOfActiveParticles().ToString(), new Vector2(0,36), Color.Black);
+
             string mousepos = (int)Mouse.GetState().X / 64 + " " + (int)Mouse.GetState().Y / 64;
             spriteBatch.DrawString(sFont, mousepos, new Vector2(0), Color.White);
             mousepos = (int)(player.getRect().X / 64) + " " + (int)(player.getRect().Y / 64);
-            spriteBatch.DrawString(sFont, mousepos, new Vector2(0,10), Color.White);
-            spriteBatch.DrawString(sFont, Mouse.GetState().ScrollWheelValue.ToString(), new Vector2(0, 20), Color.White);
+            spriteBatch.DrawString(sFont, mousepos, new Vector2(0,12), Color.White);
+            spriteBatch.DrawString(sFont, Mouse.GetState().ScrollWheelValue.ToString(), new Vector2(0, 24), Color.White);
             for (int y = 0; y < MapSize.Y; y++)
             {
                 for (int x = 0; x < MapSize.X; x++)

@@ -11,26 +11,28 @@ using Microsoft.Xna.Framework.Media;
 
 namespace OridnaryRPG
 {
-    class Fire
+    class Fire : Particle
     {
         public Vector2 startPos;
         private Random R;
-        public Fire(Vector2 position, Random r, ContentManager content, GameTime gameTime, int ttl = 4500)
+        public Fire(Vector2 position, Random r, ContentManager content, GameTime gameTime, int ttl = 4500) : base(new Vector2(1,0),position,new Vector2(16),"smoke",new Vector2(8,1),content,false,ttl)
         {
             startPos = position;
             R = r;
-            ParticleSystem.CreateParticle(position, new Vector2(1, 0), new Vector2(16, 16), new Vector2(8, 1), "smoke", content, UpdateSmoke, ttl, 0, "smoke");
+            color = Color.Black;
+            Tags = new string[1] { "smoke" };
+            ParticleSystem.AddParticle(this);
         }
-        public void UpdateSmoke(ref Particle particle, ref List<Particle> particles)
+        public override void Update(ref Particle[] particles, GameTime gametime)
         {
-            if (particle.Color == Color.White)
-                particle.Color = Color.Black;
+            /*if (color == Color.White)
+                color = Color.Black;*/
 
-            double x = particle.Position.X - startPos.X;
+            double x = Position.X - startPos.X;
             double y = Math.Sin(x / 30) * 30;
             //double x = R.Next(-1,2)*Math.Sin(y/R.Next(30,61))*R.Next(1,41);
-            particle.SetPosition(new Vector2(particle.Position.X, (float)y + startPos.Y));
-            particle.SetPosition(new Vector2((float)x + startPos.X, particle.Position.Y));
+            SetPosition(new Vector2(Position.X, (float)y + startPos.Y));
+            SetPosition(new Vector2((float)x + startPos.X, Position.Y));
         }
     }
 }
