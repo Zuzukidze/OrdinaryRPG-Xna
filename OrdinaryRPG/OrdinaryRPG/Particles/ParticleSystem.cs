@@ -96,7 +96,10 @@ namespace OridnaryRPG
             {
                 Particle p = Particles[i];
                 if (p == null || !p.isActive)
+                {
                     Particles[i] = particle;
+                    return;
+                }
             }
         }
         public static int CountOfActiveParticles()

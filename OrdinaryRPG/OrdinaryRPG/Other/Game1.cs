@@ -26,14 +26,15 @@ namespace OridnaryRPG
         public static Vector2 ScreenSize = new Vector2(1280, 960);
         public static Block[,] Map = new Block[20, 15];
         Vector2 MapSize = new Vector2(20, 15);
-        public const int MAX_PARTICLES_COUNT = 5120;
+        public const int MAX_PARTICLES_COUNT = 10240;
         int indexOfCursor = 0;
         int lastWheelState = 0;
-        Block[] blockSet = new Block[2];
+        Block[] blockSet = new Block[3];
         //SPRITES
         Sprite cursor;
         Brick block;
         Button button;
+        SmokeSpawner pspawner;
 
         //Sprite player;
         Sprite player;
@@ -53,15 +54,17 @@ namespace OridnaryRPG
         {
             //Components
             Components.Add(new FPS(this, "Fonts\\Arial-10", new Vector2(Window.ClientBounds.Width / 2f, 0))); //Show FPS
-            //Components.Add(new ParticleSystem(this)); //do almost everything with particles
+            Components.Add(new ParticleSystem(this)); //do almost everything with particles
             //Sprites
             cursor = new Sprite(Content); //mouse icon
             player = new Player(Content);
             //Bocks
             block = new Brick(Content);
             button = new Button(Content);
+            pspawner = new SmokeSpawner(null,Content);
             blockSet[0] = block;
             blockSet[1] = button;
+            blockSet[2] = pspawner;
 
             base.Initialize();
         }
@@ -78,13 +81,18 @@ namespace OridnaryRPG
             player.ScaleX(new Vector2(4));
             player.SetOrigrnToCenter();
 
-            block.LoadTexture("Block", new Vector2(0), new Vector2(16));
+            block.LoadTexture("Block", Vector2.Zero, new Vector2(16));
             block.ScaleX(new Vector2(4));
             block.color *= .5f;
 
-            button.LoadTexture("Button", new Vector2(0), new Vector2(32,16),new Vector2(2,1));
+            button.LoadTexture("Button", Vector2.Zero, new Vector2(32, 16), new Vector2(2, 1));
             button.ScaleX(new Vector2(4));
             button.color *= .5f;
+
+            pspawner.LoadTexture("smoke", Vector2.Zero, new Vector2(16),new Vector2(8,1));
+            pspawner.ScaleX(new Vector2(4));
+            pspawner.color = Color.Black;
+            pspawner.color *= .5f;
         }
         protected override void UnloadContent()
         {
@@ -134,7 +142,11 @@ namespace OridnaryRPG
             cursor.color = Color.Black;
             cursor.SetPosition(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
             blockSet[indexOfCursor].SetPosition(new Vector2((int)Mouse.GetState().X - Mouse.GetState().X % 64, (int)Mouse.GetState().Y - Mouse.GetState().Y % 64));
-            
+
+            for (int x = 0; x < MapSize.X; x++)
+                for (int y = 0; y < MapSize.Y; y++)
+                    if (Map[x,y] != null)
+                        Map[x, y].Update(gameTime);
             player.Update(gameTime);
 
             lastWheelState = Mouse.GetState().ScrollWheelValue;
@@ -184,6 +196,13 @@ namespace OridnaryRPG
                     Block = new Button(Content);
                     Block.LoadTexture("Button", new Vector2(0), new Vector2(32,16),new Vector2(2,1));
                     Block.ScaleX(new Vector2(4));
+                    break;
+                case 2:
+                    Block = new SmokeSpawner(r, Content);
+                    Block.LoadTexture("smoke", Vector2.Zero, new Vector2(16), new Vector2(8, 1));
+                    Block.ScaleX(new Vector2(4));
+                    Block.color = Color.Black;
+                    Block.color *= .1f;
                     break;
                 default:
                     Block = null;

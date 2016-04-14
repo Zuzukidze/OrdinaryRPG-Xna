@@ -84,6 +84,7 @@
     <Compile Include="Other\Program.cs" />
     <Compile Include="Sprites\Sprite types\Block types\Button.cs" />
     <Compile Include="Sprites\Sprite types\Block types\Brick.cs" />
+    <Compile Include="Sprites\Sprite types\Block types\ParticleSpawner.cs" />
     <Compile Include="Sprites\Sprite types\Block.cs" />
     <Compile Include="Sprites\Sprite types\Magazine.cs" />
     <Compile Include="Sprites\Sprite types\Platformer.cs" />
