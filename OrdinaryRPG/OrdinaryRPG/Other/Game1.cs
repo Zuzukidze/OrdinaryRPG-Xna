@@ -26,7 +26,7 @@ namespace OridnaryRPG
         public static Vector2 ScreenSize = new Vector2(1280, 960);
         public static Block[,] Map = new Block[20, 15];
         Vector2 MapSize = new Vector2(20, 15);
-        public const int MAX_PARTICLES_COUNT = 10240;
+        public const short MAX_PARTICLES_COUNT = 10240;
         int indexOfCursor = 0;
         int lastWheelState = 0;
         Block[] blockSet = new Block[3];
@@ -108,25 +108,27 @@ namespace OridnaryRPG
             //how much time has passed
             float t = (float)gameTime.ElapsedGameTime.Milliseconds;
 
-
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (IsActive)
             {
-                int blockX = (int)Mouse.GetState().X / 64;
-                int blockY = (int)Mouse.GetState().Y / 64;
-                if (blockX < MapSize.X && blockY < MapSize.Y && blockX > -1 && blockY > -1)
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
-                    Map[blockX, blockY] = getBlock(indexOfCursor);// = new Sprite(Content);
-                    Map[blockX, blockY].SetPosition(new Vector2(blockX * 64, blockY * 64));
-                    /*Map[blockX, blockY].LoadTexture("Block", new Vector2(blockX * 64, blockY * 64), new Vector2(16));
-                    Map[blockX, blockY].ScaleX(new Vector2(4));*/
+                    int blockX = (int)Mouse.GetState().X / 64;
+                    int blockY = (int)Mouse.GetState().Y / 64;
+                    if (blockX < MapSize.X && blockY < MapSize.Y && blockX > -1 && blockY > -1)
+                    {
+                        Map[blockX, blockY] = getBlock(indexOfCursor);// = new Sprite(Content);
+                        Map[blockX, blockY].SetPosition(new Vector2(blockX * 64, blockY * 64));
+                        /*Map[blockX, blockY].LoadTexture("Block", new Vector2(blockX * 64, blockY * 64), new Vector2(16));
+                        Map[blockX, blockY].ScaleX(new Vector2(4));*/
+                    }
                 }
-            }
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
-            {
-                int blockX = (int)Mouse.GetState().X / 64;
-                int blockY = (int)Mouse.GetState().Y / 64;
-                if (blockX < MapSize.X && blockY < MapSize.Y && blockX > -1 && blockY > -1)
-                    Map[blockX, blockY] = null;
+                if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                {
+                    int blockX = (int)Mouse.GetState().X / 64;
+                    int blockY = (int)Mouse.GetState().Y / 64;
+                    if (blockX < MapSize.X && blockY < MapSize.Y && blockX > -1 && blockY > -1)
+                        Map[blockX, blockY] = null;
+                }
             }
             if (Mouse.GetState().ScrollWheelValue > lastWheelState)
                 if (indexOfCursor == 0)

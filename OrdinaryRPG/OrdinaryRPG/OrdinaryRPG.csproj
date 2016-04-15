@@ -75,6 +75,7 @@
     <Compile Include="Other\FPS.cs" />
     <Compile Include="Other\Game1.cs" />
     <Compile Include="Other\Gun.cs" />
+    <Compile Include="Particles\IParticle.cs" />
     <Compile Include="Particles\Particle types\Bullet.cs" />
     <Compile Include="Particles\Particle types\Fire.cs" />
     <Compile Include="Particles\Particle types\Smoke.cs" />

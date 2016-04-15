@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace OrdinaryRPG.Sprites.Sprite_types.Block_types
 {
-    class Brick : Block
+    sealed class Brick : Block
     {
         public Brick(ContentManager content) : base(content)
         {

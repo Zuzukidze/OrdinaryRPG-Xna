@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace OrdinaryRPG.Sprites.Sprite_types.Block_types
 {
-    class Button : Block
+    sealed class Button : Block
     {
         Vector2 TargetCord;
         public Button(ContentManager content) : base(content)

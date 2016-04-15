@@ -12,8 +12,10 @@ using OridnaryRPG;
 
 namespace OrdinaryRPG.Sprites.Sprite_types.Block_types
 {
+    sealed class SmokeSpawner : Block
     {
         Random r;
+        public SmokeSpawner(Random r,ContentManager content): base(content)
         {
             isSolid = false;
             this.r = r;
