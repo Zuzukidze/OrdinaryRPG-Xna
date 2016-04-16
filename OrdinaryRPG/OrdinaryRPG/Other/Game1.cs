@@ -26,7 +26,7 @@ namespace OridnaryRPG
         public static Vector2 ScreenSize = new Vector2(1280, 960);
         public static Block[,] Map = new Block[20, 15];
         Vector2 MapSize = new Vector2(20, 15);
-        public const short MAX_PARTICLES_COUNT = 10240;
+        public const short MAX_PARTICLES_COUNT = 20480;
         int indexOfCursor = 0;
         int lastWheelState = 0;
         Block[] blockSet = new Block[3];

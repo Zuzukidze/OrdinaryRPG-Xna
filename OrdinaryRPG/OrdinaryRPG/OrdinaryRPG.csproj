@@ -80,6 +80,7 @@
     <Compile Include="Particles\Particle types\Fire.cs" />
     <Compile Include="Particles\Particle types\Smoke.cs" />
     <Compile Include="Particles\Particle.cs" />
+    <Compile Include="Particles\ParticleBasic.cs" />
     <Compile Include="Particles\ParticleSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Other\Program.cs" />

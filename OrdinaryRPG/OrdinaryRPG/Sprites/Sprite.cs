@@ -217,11 +217,11 @@ namespace OridnaryRPG
         }
         public Rectangle getRect()
         {
-            Rectangle rect = new Rectangle((int)Position.X, (int)Position.Y, (int)(Size.X * ScaleFactor.X), (int)(Size.Y * ScaleFactor.Y));
+            Rectangle rect = new Rectangle((int)Position.X, (int)Position.Y, (int)(Size.X * ScaleFactor.X/FrameCount.X), (int)(Size.Y * ScaleFactor.Y/FrameCount.X));
             rect.X -= (int)Origin.X * (int)ScaleFactor.X;
             rect.Y -= (int)Origin.Y * (int)ScaleFactor.Y;
-            rect.Width -= 4;
-            rect.Height -= 4;
+            rect.Width -= 2;
+            rect.Height -= 2;
             return rect;
         }
     }

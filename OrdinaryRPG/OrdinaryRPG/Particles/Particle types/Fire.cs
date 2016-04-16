@@ -21,7 +21,7 @@ namespace OridnaryRPG
             R = r;
             color = Color.Black;
             Tags = new string[1] { "smoke" };
-            ParticleSystem.AddParticle(this);
+            //ParticleSystem.AddParticle(this);
         }
         public override void Update(ref Particle[] particles, GameTime gametime)
         {

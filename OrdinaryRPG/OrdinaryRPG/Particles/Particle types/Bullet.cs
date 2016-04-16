@@ -23,7 +23,7 @@ namespace OridnaryRPG
             RotateToMouse();
             TTL = 200;
             Tags = new string[1] { "bullet" };
-            ParticleSystem.AddParticle(this);
+            //ParticleSystem.AddParticle(this);
         }
         public override void Update(ref Particle[] particles, GameTime gametime)
         {

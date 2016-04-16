@@ -13,19 +13,34 @@ namespace OrdinaryRPG.Particles
 {
     interface IParticle
     {
-        public Vector2 Position;
-        public Vector2 Velocity;
-        public Vector2 Size; //texture size
+        Vector2 Position { get; set; }
+        Vector2 Velocity { get; set; }
+        Vector2 Size { get; set; } //texture size
 
-        private Texture2D texture;
-        private ContentManager content;
-        public bool isActive;
+        Texture2D texture { get; set; }
+        bool isActive { get; set; }
 
-        public short TTL; // time to life
-        public short TOL; // time of life
+        short TTL { get; set; } // time to life
+        short TOL { get; set; } // time of life
 
-        public void Update(GameTime gametime);
-        public void Draw(GameTime gametime);
+        void Update(ref IParticle[] particles, GameTime gametime);
+        void Draw(SpriteBatch spritebatch,GameTime gametime);
+
+    }
+    sealed class ParticleHelper
+    {
+        public static void Move(IParticle particle, Vector2 offset)
+        {
+            particle.Position += offset;
+        }
+        public static void MoveX(IParticle particle, float offsetX)
+        {
+            particle.Position += new Vector2(offsetX,0);
+        }
+        public static void MoveY(IParticle particle, float offsetY)
+        {
+            particle.Position += new Vector2(0,offsetY);
+        }
 
     }
 }
