@@ -8,16 +8,15 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using OridnaryRPG;
 namespace OrdinaryRPG.Particles
 {
-    class ParticleBasic : IParticle
+    struct ParticleBasic : IParticle
     {
         private Vector2 position;
         private Vector2 velocity;
-        private Vector2 size; //texture size
 
-        private Texture2D texture;
-        private ContentManager content;
+        private static Texture2D texture;
         private bool isactive;
 
         private short ttl; // time to life
@@ -27,8 +26,10 @@ namespace OrdinaryRPG.Particles
         {
             this.position = position;
             this.velocity = velocity;
-            texture = content.Load<Texture2D>("Textures\\" + texturename);
+            if (texture == null)
+                texture = content.Load<Texture2D>("Textures\\" + texturename);
             ttl = timetolife;
+            tol = 0;
             isactive = true;
         }
         public void Update(ref IParticle[] particles, GameTime gametime)
@@ -61,17 +62,6 @@ namespace OrdinaryRPG.Particles
             set
             {
                 velocity = value;
-            }
-        }
-        Vector2 IParticle.Size
-        {
-            get
-            {
-                return size;
-            }
-            set
-            {
-                size = value;
             }
         }
 

@@ -15,7 +15,6 @@ namespace OrdinaryRPG.Particles
     {
         Vector2 Position { get; set; }
         Vector2 Velocity { get; set; }
-        Vector2 Size { get; set; } //texture size
 
         Texture2D texture { get; set; }
         bool isActive { get; set; }

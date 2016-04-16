@@ -20,6 +20,7 @@ namespace OridnaryRPG
     public class Game1 : Microsoft.Xna.Framework.Game
     {
          public static GraphicsDeviceManager graphics;
+         public static ContentManager content;
         SpriteBatch spriteBatch;
         SpriteFont sFont;
         Random r = new Random();
@@ -48,6 +49,7 @@ namespace OridnaryRPG
             graphics.PreferredBackBufferWidth = (int)ScreenSize.X;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+            content = Content;
         }
 
         protected override void Initialize()
